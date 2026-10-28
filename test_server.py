@@ -17,6 +17,14 @@ import server
 
 
 class ChurchServerTests(unittest.TestCase):
+    def test_server_uses_render_port_and_public_bind_address(self):
+        with patch.dict("os.environ", {"PORT": "10000"}, clear=True):
+            self.assertEqual(server.server_bind_address(), ("0.0.0.0", 10000))
+
+    def test_server_keeps_local_bind_defaults_without_render_port(self):
+        with patch.dict("os.environ", {}, clear=True):
+            self.assertEqual(server.server_bind_address(), ("127.0.0.1", 8000))
+
     def setUp(self):
         self.temp_dir = tempfile.TemporaryDirectory()
         self.previous_paths = server.DATA_DIR, server.MEDIA_DIR, server.DATABASE

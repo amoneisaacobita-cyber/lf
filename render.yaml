@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: life-fountain-church
+    runtime: docker
+    plan: starter
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/status
+    envVars:
+      - key: LFC_DATA_DIR
+        value: /var/data
+      - key: LFC_HTTPS
+        value: "1"
+      - key: LFC_STUDIO_PASSWORD
+        sync: false
+    disk:
+      name: life-fountain-data
+      mountPath: /var/data
+      sizeGB: 25

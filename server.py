@@ -2331,10 +2331,16 @@ class ChurchHandler(BaseHTTPRequestHandler):
         self.send_error(HTTPStatus.NOT_FOUND)
 
 
+def server_bind_address() -> tuple[str, int]:
+    render_port = os.environ.get("PORT")
+    host = os.environ.get("LFC_HOST", "0.0.0.0" if render_port else "127.0.0.1")
+    port = int(render_port or os.environ.get("LFC_PORT", "8000"))
+    return host, port
+
+
 def main() -> None:
     initialize_db()
-    host = os.environ.get("LFC_HOST", "127.0.0.1")
-    port = int(os.environ.get("LFC_PORT", "8000"))
+    host, port = server_bind_address()
     server = ChurchServer((host, port), ChurchHandler)
     print(f"Life Fountain Church is running at http://{host}:{port}")
     print(f"Persistent data directory: {DATA_DIR}")
