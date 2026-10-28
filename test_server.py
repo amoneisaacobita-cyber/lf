@@ -208,6 +208,7 @@ class ChurchServerTests(unittest.TestCase):
         _, initial_chunks = self.request(
             self.make_client(), f"/api/streams/{stream['id']}/chunks?after=-1"
         )
+        self.assertTrue(initial_chunks["live"])
         self.assertEqual(initial_chunks["sequences"], [0])
         chunk = urllib.request.urlopen(
             self.base_url + f"/api/streams/{stream['id']}/chunks/0", timeout=5
@@ -228,6 +229,10 @@ class ChurchServerTests(unittest.TestCase):
             {"Content-Type": "audio/wav"},
         )
         self.assertIn(stream["id"], saved["recording_url"])
+        _, ended_stream_chunks = self.request(
+            self.make_client(), f"/api/streams/{stream['id']}/chunks?after=0"
+        )
+        self.assertFalse(ended_stream_chunks["live"])
         _, recordings = self.request(self.make_client(), "/api/recordings")
         self.assertEqual(recordings[0]["cover_url"], stream["cover_url"])
         _, recording_view = self.request(

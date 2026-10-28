@@ -951,12 +951,22 @@ class ChurchHandler(BaseHTTPRequestHandler):
                 self.send_error_json(HTTPStatus.BAD_REQUEST, "Invalid audio segment cursor.")
                 return
             with connect_db() as db:
+                stream = db.execute(
+                    "SELECT status FROM streams WHERE id = ?",
+                    (stream_id,),
+                ).fetchone()
                 rows = db.execute(
                     """SELECT sequence FROM audio_chunks
                        WHERE stream_id = ? AND sequence > ? ORDER BY sequence LIMIT 128""",
                     (stream_id, after),
                 ).fetchall()
-            self.send_json(HTTPStatus.OK, {"sequences": [row["sequence"] for row in rows]})
+            self.send_json(
+                HTTPStatus.OK,
+                {
+                    "live": bool(stream and stream["status"] == "live"),
+                    "sequences": [row["sequence"] for row in rows],
+                },
+            )
             return
         if len(parts) == 4 and parts[:2] == ["api", "streams"] and parts[3] == "cover":
             stream_id = parts[2]

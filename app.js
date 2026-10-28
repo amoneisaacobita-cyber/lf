@@ -60,6 +60,9 @@ let listenerAutoplayBlocked = false;
 let listenerStartedPlayback = false;
 let queuedAudioSegments = [];
 let pendingListenerStreamId = null;
+const LIVE_AUDIO_POLL_INTERVAL_MS = 150;
+const LIVE_AUDIO_STARTUP_BUFFER_SECONDS = 1.25;
+const LIVE_AUDIO_DOWNLOAD_BATCH_SIZE = 8;
 let pendingPage = null;
 let activeFilter = "All";
 let reverseSermons = false;
@@ -659,17 +662,25 @@ async function toggleLiveListen() {
         sourceBuffer = mediaSource.addSourceBuffer(result.stream.mime_type);
         sourceBuffer.mode = "sequence";
         sourceBuffer.addEventListener("updateend", () => {
-          if (!listenerStartedPlayback && !listenerAutoplayBlocked && sourceBuffer.buffered.length) {
+          const bufferedAhead = sourceBuffer.buffered.length
+            ? sourceBuffer.buffered.end(sourceBuffer.buffered.length - 1) - player.currentTime
+            : 0;
+          if (
+            !listenerStartedPlayback &&
+            !listenerAutoplayBlocked &&
+            bufferedAhead >= LIVE_AUDIO_STARTUP_BUFFER_SECONDS
+          ) {
             player.play().then(() => {
               listenerStartedPlayback = true;
             }).catch(() => {
               listenerAutoplayBlocked = true;
               document.querySelector("#liveDescription").textContent =
-                "Audio is arriving live. Press play on the audio controls to listen.";
+                "Live audio is buffered. Press play on the audio controls to listen.";
             });
           }
           appendNextAudioSegment();
         });
+        document.querySelector("#liveDescription").textContent = "Buffering live audio…";
         pollLiveAudio();
       } catch (error) {
         listenerActive = false;
@@ -695,25 +706,35 @@ function appendNextAudioSegment() {
 async function pollLiveAudio() {
   if (!listenerActive || !pendingListenerStreamId) return;
   try {
-    const status = await apiRequest("/api/stream");
-    if (status.stream?.id !== pendingListenerStreamId) {
+    const result = await apiRequest(
+      `/api/streams/${pendingListenerStreamId}/chunks?after=${listenerSequence}`
+    );
+    if (!result.live) {
       document.querySelector("#liveDescription").textContent = "The live stream has ended.";
       listenerActive = false;
       clearTimeout(listenerTimer);
       return;
     }
-    const result = await apiRequest(`/api/streams/${pendingListenerStreamId}/chunks?after=${listenerSequence}`);
-    for (const sequence of result.sequences) {
+    const sequences = result.sequences.slice(0, LIVE_AUDIO_DOWNLOAD_BATCH_SIZE);
+    const segments = await Promise.all(sequences.map(async (sequence) => {
       const response = await fetch(`/api/streams/${pendingListenerStreamId}/chunks/${sequence}`, {
         credentials: "same-origin",
         cache: "no-store"
       });
       if (!response.ok) throw new Error(`Could not download live audio (${response.status}).`);
-      queuedAudioSegments.push(await response.arrayBuffer());
+      return response.arrayBuffer();
+    }));
+    for (let index = 0; index < sequences.length; index += 1) {
+      queuedAudioSegments.push(segments[index]);
+      const sequence = sequences[index];
       listenerSequence = sequence;
       appendNextAudioSegment();
     }
-    listenerTimer = window.setTimeout(pollLiveAudio, 300);
+    const hasBacklog = result.sequences.length > sequences.length;
+    listenerTimer = window.setTimeout(
+      pollLiveAudio,
+      hasBacklog ? 0 : LIVE_AUDIO_POLL_INTERVAL_MS
+    );
   } catch (error) {
     listenerActive = false;
     document.querySelector("#listenLive").textContent = "▶";
@@ -965,7 +986,7 @@ async function toggleRecording() {
         showToast(`Stream upload failed: ${error.message}`);
       });
     });
-    activeRecorder.start(1000);
+    activeRecorder.start(500);
     liveRecording = true;
     streamButton.textContent = "■  Stop stream and save";
     streamButton.classList.add("recording-button");
