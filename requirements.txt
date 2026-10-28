@@ -1,0 +1,2 @@
+# The server and test suite use only the Python standard library.
+# Install FFmpeg separately for audio/video conversion; see README.md.

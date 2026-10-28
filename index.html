@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f8f7f4">
+    <meta name="description" content="A welcoming place to listen, pray, and grow together.">
+    <title>Life Fountain Church</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="startup-screen" id="startupScreen" aria-label="Life Fountain Church loading">
+      <span class="startup-logo" id="startupLogoFallback" aria-hidden="true">L</span>
+      <img class="startup-logo-image" id="startupLogo" alt="" hidden>
+      <span class="startup-name">Life Fountain Church</span>
+    </div>
+    <div class="app-shell">
+      <aside class="sidebar" id="sidebar">
+        <a class="brand" href="#" data-page="home" aria-label="Life Fountain Church home">
+          <span class="brand-mark" aria-hidden="true"><span id="brandLogoFallback">L</span><img id="brandLogo" alt="" hidden></span>
+          <span class="brand-name">Life Fountain</span>
+        </a>
+        <div class="church-switcher">
+          <div class="church-avatar"><span id="churchLogoFallback">L</span><img id="churchLogo" alt="" hidden></div>
+          <div class="church-details"><strong>Life Fountain Church</strong><span>Church family</span></div>
+          <span class="chevron" aria-hidden="true">⌄</span>
+        </div>
+        <p class="nav-label">YOUR SPACE</p>
+        <nav class="main-nav" aria-label="Main navigation">
+          <button class="nav-item active" data-page="home"><span class="nav-icon">⌂</span>Home</button>
+          <button class="nav-item" data-page="sermons"><span class="nav-icon">♫</span>Sermons<span class="nav-count">24</span></button>
+          <button class="nav-item" data-page="shorts"><span class="nav-icon">▷</span>Short videos</button>
+          <button class="nav-item" data-page="prayer"><span class="nav-icon">♡</span>Prayer requests</button>
+          <button class="nav-item" data-page="announcements"><span class="nav-icon">▤</span>Announcements</button>
+        </nav>
+        <p class="nav-label nav-label-spaced">GROW TOGETHER</p>
+        <nav class="main-nav" aria-label="Community navigation">
+          <button class="nav-item" data-page="verses"><span class="nav-icon">✳</span>Daily verses</button>
+          <button class="nav-item" data-page="bible"><span class="nav-icon">▤</span>King James Bible</button>
+          <button class="nav-item" data-page="community"><span class="nav-icon">◎</span>Community</button>
+          <button class="nav-item" data-page="about"><span class="nav-icon">⌖</span>About us</button>
+        </nav>
+        <p class="nav-label nav-label-spaced">CHURCH TOOLS</p>
+        <nav class="main-nav" aria-label="Church tools navigation">
+          <button class="nav-item admin-nav" data-page="admin"><span class="nav-icon">⚙</span>Admin dashboard<span class="admin-dot"></span></button>
+          <button class="nav-item studio-nav" data-page="studio"><span class="nav-icon">♫</span>Streaming studio<span class="admin-dot"></span></button>
+        </nav>
+        <div class="sidebar-bottom">
+          <div class="sidebar-verse">
+            <span class="verse-spark">✳</span>
+            <p>“Be still, and know that I am God.”</p>
+            <span>PSALM 46:10</span>
+          </div>
+          <div class="profile">
+            <div class="profile-avatar">JD</div>
+            <div class="profile-details"><strong>Jordan Davis</strong><span>Member</span></div>
+            <button class="more-button" aria-label="Profile options">···</button>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main-area">
+        <header class="topbar">
+          <button class="mobile-menu" id="menuToggle" aria-label="Open navigation">☰</button>
+          <div class="breadcrumb"><span>Life Fountain Church</span><span class="breadcrumb-divider">/</span><strong id="breadcrumbCurrent">Home</strong></div>
+          <div class="topbar-actions">
+            <label class="search-box"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="Search anything..." aria-label="Search sermons and videos"><kbd>⌘ K</kbd></label>
+            <button class="icon-button notification-button" aria-label="Notifications">♧<span class="notification-dot"></span></button>
+            <button class="top-avatar" id="accountButton" aria-label="Sign in to staff account">→</button>
+          </div>
+        </header>
+
+        <div class="page-content" id="pageContent">
+          <section class="page-view active" data-view="home">
+            <div class="welcome-row">
+              <div><p class="eyebrow"><span class="sun-icon">☀</span> <span id="currentDate">TODAY</span></p><h1>A little more <em>together.</em></h1><p class="welcome-copy">Your place to find encouragement, share life, and grow in faith.</p></div>
+              <button class="button button-outline" data-page="prayer"><span>＋</span> Share a prayer</button>
+            </div>
+
+            <section class="live-card" id="liveCard">
+              <div class="live-background" aria-hidden="true"><div class="live-orb orb-one"></div><div class="live-orb orb-two"></div><div class="live-lines"></div></div>
+              <div class="live-content">
+                <div class="live-topline"><span class="live-pill" id="homeStreamStatus"><span></span> OFF AIR</span><span class="listener-count" id="homeListenerCount">Broadcast service not connected</span><div class="live-actions"><button class="live-action like-button" aria-label="Like live stream" aria-pressed="false">♡</button><button class="live-action comment-button" data-title="Life Fountain Church live" aria-label="Comment on live stream">☏</button><button class="live-action share-button" data-title="Life Fountain Church live" aria-label="Share live stream">↗</button></div></div>
+                <p class="live-kicker">LIFE FOUNTAIN CHURCH</p>
+                <h2 id="homeStreamTitle">Join us for<br>live audio.</h2>
+                <p class="live-byline">Life Fountain Church <span>·</span> Live audio</p>
+                <div class="live-controls"><button class="play-button" id="listenLive" aria-label="Listen to live stream">▶</button><div class="live-track"><strong id="liveButtonText">No live audio right now</strong><span id="liveDescription">When the church is live, join the stream here.</span></div><div class="waveform" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+                <audio id="liveAudio" controls hidden></audio>
+              </div>
+              <div class="live-art" aria-hidden="true"><img id="liveStreamCover" class="live-stream-cover" alt="" hidden><div class="art-sun"></div><div class="art-mountain mountain-back"></div><div class="art-mountain mountain-front"></div><span class="art-star star-a">✳</span><span class="art-star star-b">✳</span><span class="art-star star-c">✦</span></div>
+            </section>
+
+            <section class="verse-card">
+              <div class="verse-card-icon">✳</div><div class="verse-copy"><span class="section-kicker">A MOMENT IN THE WORD <span class="verse-time">· &nbsp; MORNING</span></span><blockquote id="dailyVerse">“The Lord is my strength and my shield; my heart trusts in him, and he helps me.”</blockquote><div class="verse-foot"><span id="verseReference">PSALM 28:7</span><button class="text-button" id="newVerse">Another verse <span>↗</span></button></div></div>
+            </section>
+
+            <div class="section-heading"><div><p class="eyebrow">LISTEN &amp; GROW</p><h2>Latest sermons</h2></div><button class="text-button" data-page="sermons">View all <span>→</span></button></div>
+            <div class="sermon-grid" id="homeSermons"></div>
+            <div class="community-strip"><div class="community-icon">♡</div><div><strong>Carrying something on your heart?</strong><span>Our pastors are here to listen and pray with you.</span></div><button class="button button-light" data-page="prayer">Send a prayer request <span>→</span></button></div>
+          </section>
+
+          <section class="page-view" data-view="sermons">
+            <div class="inner-page-heading"><div><p class="eyebrow">LISTEN &amp; GROW</p><h1>Sermons</h1><p>Thoughtful words for wherever life finds you.</p></div>            <button class="button button-outline" data-page="studio">＋ Add a sermon</button></div>
+            <div class="filter-row"><div class="filter-tabs"><button class="filter-tab active" data-filter="All">All sermons <span>24</span></button><button class="filter-tab" data-filter="Faith">Faith</button><button class="filter-tab" data-filter="Hope">Hope</button><button class="filter-tab" data-filter="Community">Community</button></div><button class="sort-button" id="sortSermons">↕ &nbsp; Most recent</button></div>
+            <p class="search-results-note" id="sermonSearchNote" hidden></p>
+            <div class="sermon-grid full-sermon-grid" id="sermonList"></div>
+          </section>
+
+          <section class="page-view" data-view="shorts">
+            <div class="inner-page-heading"><div><p class="eyebrow">A LITTLE INSPIRATION</p><h1>Short videos</h1><p>Small moments of encouragement for your day.</p></div><button class="button button-outline" data-page="studio">＋ Upload a video</button></div>
+            <p class="search-results-note" id="shortSearchNote" hidden></p>
+            <div class="shorts-grid" id="shortsGrid"></div>
+          </section>
+
+          <section class="page-view" data-view="prayer">
+            <div class="prayer-layout"><div class="prayer-intro"><p class="eyebrow">YOU ARE NOT ALONE</p><h1>We’re here<br>to <em>pray with you.</em></h1><p>Whatever you’re walking through, our pastors would be honored to pray alongside you. Share as much or as little as you’d like.</p><div class="prayer-privacy"><span>♧</span><div><strong>Your request is private</strong><p>Only our pastoral team will see your request.</p></div></div><div class="prayer-quote">“Carry each other’s burdens, and in this way you will fulfill the law of Christ.”<span>GALATIANS 6:2</span></div></div>
+              <form class="prayer-form" id="prayerForm"><h2>Share a prayer request</h2><p>We’ll hold your request with care.</p><label for="prayerName">Your name <span>(optional)</span></label><input id="prayerName" name="name" placeholder="How should we address you?"><label for="pastorSelect">Send to</label><select id="pastorSelect" name="pastor"><option value="">Pastoral care team</option></select><label for="prayerMessage">Your prayer request</label><textarea id="prayerMessage" name="message" rows="5" maxlength="5000" placeholder="Share what’s on your heart..." required></textarea><div class="form-footer"><span>♡ &nbsp; Only your assigned pastor and church admin can see this.</span><button class="button button-primary" type="submit">Send request <span>→</span></button></div><div class="form-message" id="prayerMessageStatus" role="status"></div></form></div>
+          </section>
+
+          <section class="page-view" data-view="verses">
+            <div class="inner-page-heading"><div><p class="eyebrow">PAUSE &amp; REFLECT</p><h1>Daily verses</h1><p>A little light for every part of your day.</p></div><button class="button button-outline" id="refreshVerses">✳ &nbsp; New verses</button></div>
+            <div class="daily-verse-grid" id="verseGrid"></div>
+            <div class="section-heading verse-library-heading"><div><p class="eyebrow">MORE SCRIPTURE</p><h2>Verse library</h2></div></div>
+            <div class="verse-library-grid" id="verseLibrary"></div>
+          </section>
+
+          <section class="page-view" data-view="bible">
+            <div class="inner-page-heading"><div><p class="eyebrow">READ SCRIPTURE</p><h1>King James Bible</h1><p>Browse all 66 books of the King James Version.</p></div></div>
+            <div class="bible-controls admin-panel">
+              <label for="bibleBook">Book</label><select class="admin-input" id="bibleBook"></select>
+              <label for="bibleChapter">Chapter</label><select class="admin-input" id="bibleChapter"></select>
+              <label for="bibleSearch">Search the Bible</label><input class="admin-input" id="bibleSearch" type="search" placeholder="Search words or a reference">
+              <div class="bible-enter-row"><span>Choose a book and chapter or search, then press Enter.</span><button class="button button-primary" id="enterBibleSelection" type="button">Enter</button></div>
+            </div>
+            <div class="bible-results-note" id="bibleResultsNote" role="status"></div>
+            <article class="bible-reading admin-panel"><div class="bible-reading-heading"><button class="button button-outline" id="previousChapter" type="button">← Previous</button><h2 id="bibleReadingTitle">Genesis 1</h2><button class="button button-outline" id="nextChapter" type="button">Next →</button></div><div class="bible-verse-list" id="bibleVerses"></div></article>
+            <p class="bible-attribution">King James Version. Bible data from Arul John’s Bible-kjv dataset.</p>
+          </section>
+
+          <section class="page-view" data-view="about">
+            <div class="inner-page-heading"><div><p class="eyebrow">WELCOME TO LIFE FOUNTAIN</p><h1 id="aboutChurchName">About us</h1><p id="aboutChurchMessage">We would love to connect with you.</p></div></div>
+            <div class="about-grid">
+              <section class="admin-panel about-details"><p class="section-kicker">GET IN TOUCH</p><h2 id="aboutLeader"></h2><p id="aboutLocation"></p><a id="aboutPhone" hidden></a><a id="aboutEmail" hidden></a><a class="button button-primary directions-link" id="directionsLink" target="_blank" rel="noopener noreferrer" hidden>Get directions ↗</a></section>
+              <section class="admin-panel map-panel"><h2>Find us</h2><p id="mapEmptyMessage">Church location will be added soon.</p><iframe id="churchMap" title="Map showing Life Fountain Church location" loading="lazy" referrerpolicy="no-referrer" hidden></iframe></section>
+            </div>
+          </section>
+
+          <section class="page-view" data-view="announcements">
+            <div class="inner-page-heading"><div><p class="eyebrow">CHURCH UPDATES</p><h1>Announcements</h1><p>Important news and updates from the church team.</p></div></div>
+            <div class="admin-panel announcement-compose-panel" id="announcementComposePanel" hidden>
+              <div class="panel-heading"><div><span class="panel-icon">✎</span><h2>Share an announcement</h2></div></div>
+              <form id="announcementForm" class="settings-form">
+                <label for="announcementTitle">Heading</label><input class="admin-input" id="announcementTitle" name="title" maxlength="120" required placeholder="Announcement heading">
+                <label for="announcementMessage">Message</label><textarea class="admin-input" id="announcementMessage" name="message" rows="4" maxlength="3000" required placeholder="Write the announcement"></textarea>
+                <label for="announcementAudience">Who can see it?</label><select class="admin-input" id="announcementAudience" name="audience"><option value="everyone">Everyone</option><option value="pastors">Pastors only</option></select>
+                <div class="pastor-form-actions"><button class="button button-primary" type="submit">Publish announcement</button></div><div class="form-message" id="announcementMessageStatus" role="status"></div>
+              </form>
+            </div>
+            <div class="announcement-list" id="announcementList" aria-live="polite"></div>
+          </section>
+
+          <section class="page-view" data-view="community">
+            <div class="inner-page-heading"><div><p class="eyebrow">LIFE IS BETTER TOGETHER</p><h1>Community</h1><p>Stay close to what’s happening in our church family.</p></div></div>
+            <div class="community-welcome"><div class="community-welcome-icon">✳</div><div><span class="section-kicker">LIFE FOUNTAIN CHURCH</span><h2>There’s a place for you here.</h2><p>Join us this Sunday at 9:00 or 11:00 AM. Come as you are; we’ll save you a seat.</p><button class="button button-light" data-page="prayer">Connect with our team <span>→</span></button></div></div>
+            <div class="community-strip lower-strip"><div class="community-icon">♡</div><div><strong>Need someone to talk to?</strong><span>Our pastors would love to connect with you.</span></div><button class="button button-light" data-page="prayer">Reach out <span>→</span></button></div>
+          </section>
+
+          <section class="page-view" data-view="admin">
+            <div class="inner-page-heading admin-heading"><div><p class="eyebrow">CHURCH TEAM</p><h1>Admin dashboard</h1><p>Manage pastors and prayer requests for Life Fountain Church.</p></div><span class="demo-badge" data-server-badge>CONNECTING</span></div>
+            <div class="admin-notice"><span>ⓘ</span><p><strong>Administration.</strong> Add pastors to the prayer team and follow up on requests here. Streaming and media publishing are in the separate Streaming studio.</p></div>
+            <div class="admin-stats"><div><span>Pastoral team</span><strong id="pastorCount">0</strong><small class="stat-muted">Pastors added by admin</small></div><div><span>Prayer requests</span><strong id="totalPrayerCount">0</strong><small class="stat-muted">Received by the church</small></div><div><span>Open prayer requests</span><strong id="openPrayerCount">0</strong><small class="stat-muted">Waiting for pastoral care</small></div></div>
+            <div class="admin-panel pastors-panel" id="pastorsManagement"><div class="panel-heading"><div><span class="panel-icon">♙</span><h2>Pastoral team</h2></div><button class="text-button" id="addPastor">＋ Add a pastor</button></div><form class="pastor-form" id="pastorForm" hidden><label for="pastorName">Pastor’s name</label><input class="admin-input" id="pastorName" name="name" placeholder="e.g. Pastor Jordan" maxlength="80" required><label for="pastorEmail">Email</label><input class="admin-input" id="pastorEmail" name="email" type="email" placeholder="pastor@example.org" maxlength="120" required><label for="pastorPassword">Temporary password</label><input class="admin-input" id="pastorPassword" name="password" type="password" placeholder="At least 8 characters" minlength="8" maxlength="256" required><div class="pastor-form-actions"><button type="button" class="button button-outline" id="cancelAddPastor">Cancel</button><button type="submit" class="button button-primary">Add pastor</button></div></form><div class="pastor-list" id="pastorList"></div></div>
+            <div class="admin-panel prayer-inbox-panel"><div class="panel-heading"><div><span class="panel-icon">♡</span><h2>Prayer requests</h2></div><span class="inbox-count" id="inboxCount">0 requests</span></div><p class="panel-description">Review requests submitted by your church family and record a pastoral response.</p><div class="prayer-inbox" id="prayerInbox"></div></div>
+            <div class="admin-panel admin-settings-panel"><div class="panel-heading"><div><span class="panel-icon">⌖</span><h2>About us and location</h2></div></div><p class="panel-description">These details are shown publicly. Add map coordinates to place a pin and enable directions.</p><form id="churchProfileForm" class="settings-form"><label for="churchNameInput">Church name</label><input class="admin-input" id="churchNameInput" name="name" maxlength="120" required><label for="churchLeaderInput">Pastor or contact name</label><input class="admin-input" id="churchLeaderInput" name="leader" maxlength="120"><div class="settings-two-column"><div><label for="churchPhoneInput">Contact phone</label><input class="admin-input" id="churchPhoneInput" name="phone" type="tel" maxlength="40"></div><div><label for="churchEmailInput">Contact email</label><input class="admin-input" id="churchEmailInput" name="email" type="email" maxlength="254"></div></div><label for="churchAddressInput">Church address / location</label><textarea class="admin-input" id="churchAddressInput" name="address" rows="2" maxlength="500"></textarea><div class="settings-two-column"><div><label for="churchLatitudeInput">Map latitude</label><input class="admin-input" id="churchLatitudeInput" name="latitude" type="number" step="any" min="-90" max="90" placeholder="e.g. -1.2864"></div><div><label for="churchLongitudeInput">Map longitude</label><input class="admin-input" id="churchLongitudeInput" name="longitude" type="number" step="any" min="-180" max="180" placeholder="e.g. 36.8172"></div></div><label for="churchAboutInput">About the church</label><textarea class="admin-input" id="churchAboutInput" name="about" rows="4" maxlength="3000"></textarea><div class="pastor-form-actions"><button class="button button-primary" type="submit">Save church details</button></div><div class="form-message" id="churchProfileMessage" role="status"></div></form>
+              <form id="churchLogoForm" class="settings-form logo-form" hidden><label for="churchLogoInput">Church app logo</label><p class="panel-description">Upload a square JPG, PNG, or WebP logo up to 2 MB. It will appear in the website branding and startup animation.</p><div class="logo-preview"><span id="logoPreviewFallback">L</span><img id="logoPreview" alt="Current church logo" hidden></div><label class="upload-option cover-upload-option" for="churchLogoInput"><span class="upload-option-icon">▧</span><span><strong id="churchLogoLabel">Choose church logo</strong><small>JPG, PNG, or WebP · Up to 2 MB</small></span><span>＋</span></label><input id="churchLogoInput" type="file" accept="image/jpeg,image/png,image/webp" hidden><div class="pastor-form-actions"><button class="button button-primary" id="saveChurchLogo" type="submit">Save church logo</button><button class="button button-outline" id="removeChurchLogo" type="button" hidden>Remove logo</button></div><div class="form-message" id="churchLogoMessage" role="status"></div></form>
+            </div>
+            <div class="admin-panel admin-settings-panel"><div class="panel-heading"><div><span class="panel-icon">✳</span><h2>Add a daily Bible verse</h2></div></div><p class="panel-description">Add a verse and reference to the daily verse rotation and public verse library.</p><form id="verseForm" class="settings-form"><label for="verseTextInput">Verse text</label><textarea class="admin-input" id="verseTextInput" name="text" rows="3" maxlength="2000" required placeholder="Enter the verse text"></textarea><label for="verseReferenceInput">Bible reference</label><input class="admin-input" id="verseReferenceInput" name="reference" maxlength="80" required placeholder="e.g. Psalm 23:1"><div class="pastor-form-actions"><button class="button button-primary" type="submit">Add verse</button></div><div class="form-message" id="verseFormMessage" role="status"></div></form><div id="adminVerseList" class="admin-verse-list"></div></div>
+          </section>
+
+          <section class="page-view" data-view="studio">
+            <div class="inner-page-heading admin-heading"><div><p class="eyebrow">MEDIA &amp; BROADCAST</p><h1>Streaming studio</h1><p>Start audio sessions and publish media for church members.</p></div><span class="demo-badge" data-server-badge>CONNECTING</span></div>
+            <div class="admin-notice"><span>ⓘ</span><p><strong>Streaming studio.</strong> Unlock with the separate studio password. Then sign in with your admin or pastor account to start or stop audio and publish media. Members can listen from the home page while you are live; the finished recording is saved below. <strong>Local-only note:</strong> this development server is only reachable on this computer; audience members elsewhere need a secure hosted site to hear a broadcast.</p></div>
+            <div class="admin-columns"><div class="admin-panel"><div class="panel-heading"><div><span class="panel-icon">♫</span><h2>Live audio stream</h2></div><span class="offline-pill" id="streamStatus">● OFFLINE</span></div><p class="panel-description">Give the broadcast a heading, choose an optional wallpaper, then start speaking.</p><label class="stream-title-label" for="streamName">Live stream and saved sermon title</label><input class="admin-input" id="streamName" placeholder="Enter the title for this live stream" maxlength="120" required><label class="upload-option cover-upload-option stream-cover-option" for="streamCoverInput"><span class="upload-option-icon">▧</span><span><strong id="streamCoverLabel">Choose live stream wallpaper (optional)</strong><small>Shown while live and on the saved sermon · JPG, PNG, or WebP · Up to 5 MB</small></span><span>＋</span></label><input id="streamCoverInput" type="file" accept="image/jpeg,image/png,image/webp" hidden><div class="stream-preview"><div class="stream-mic">♫</div><div><strong id="streamTitle">Ready when you are</strong><span id="streamDescription">Sign in as a pastor or admin to start streaming.</span></div></div><button class="button button-primary full-button" id="streamButton">● &nbsp; Start audio stream</button><p class="panel-footnote">Allow microphone access when asked. Members can listen live from the home page; the audio and title are saved when you stop.</p></div>
+              <div class="admin-panel"><div class="panel-heading"><div><span class="panel-icon">＋</span><h2>Publish content</h2></div></div><p class="panel-description">Add a sermon or share a short video with your community.</p><label class="stream-title-label" for="sermonTitle">Sermon heading</label><input class="admin-input media-title-input" id="sermonTitle" maxlength="120" placeholder="Give this sermon a heading"><label class="upload-option cover-upload-option" for="sermonCoverInput"><span class="upload-option-icon">▧</span><span><strong id="coverUploadLabel">Choose sermon wallpaper (optional)</strong><small>JPG, PNG, or WebP · Up to 5 MB</small></span><span>＋</span></label><input id="sermonCoverInput" type="file" accept="image/jpeg,image/png,image/webp" hidden><button class="upload-option" id="sermonUploadTrigger"><span class="upload-option-icon">♫</span><span><strong>Upload a sermon video</strong><small>Chunked upload and MP3 conversion · Supports videos up to 20 GB, including files over 5 GB.</small></span><span>→</span></button><input id="sermonFileInput" type="file" accept="video/*" hidden><button class="upload-option" id="audioSermonUploadTrigger"><span class="upload-option-icon">♫</span><span><strong>Upload an audio sermon</strong><small>MP3, WAV, M4A, OGG, or WebM · 100 MB maximum</small></span><span>→</span></button><input id="audioSermonFileInput" type="file" accept="audio/*,.m4a,.mp3,.wav,.ogg,.webm,.flac,.aac" hidden><button class="upload-option" id="shortUploadTrigger"><span class="upload-option-icon">▷</span><span><strong>Upload a short video</strong><small>MP4, MOV, or WebM · Up to 100 MB</small></span><span>→</span></button><input id="shortFileInput" type="file" accept="video/*" hidden><div id="uploadFeedback" class="upload-feedback" role="status"></div></div></div>
+            <div class="admin-panel recordings-panel"><div class="panel-heading"><div><span class="panel-icon">♫</span><h2>Saved stream recordings</h2></div></div><p class="panel-description">Completed live streams are saved here for listening later.</p><div id="recordingsList" class="recordings-list"></div></div>
+          </section>
+        </div>
+        <div class="sermon-player-dock" id="sermonPlayerDock" hidden role="region" aria-label="Sermon audio player">
+          <div class="sermon-player-heading"><div><span class="section-kicker">NOW PLAYING</span><strong id="sermonNowPlaying"></strong></div><button class="button button-outline" id="stopSermonPlayer" type="button">■ Stop</button></div>
+          <audio id="recordedAudio" controls></audio>
+        </div>
+      </main>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <dialog class="comment-dialog" id="commentDialog" aria-labelledby="commentHeading">
+      <form id="commentForm">
+        <div class="comment-dialog-heading"><div><p class="eyebrow">JOIN THE CONVERSATION</p><h2 id="commentHeading">Leave a comment</h2></div><button class="comment-close" type="button" aria-label="Close comments">×</button></div>
+        <p class="comment-context" id="commentContext"></p>
+        <div class="comment-list" id="commentList"></div>
+        <label for="commentInput">Your comment</label>
+        <textarea id="commentInput" rows="3" placeholder="Add a thoughtful comment..." required></textarea>
+        <button class="button button-primary" type="submit">Post comment</button>
+      </form>
+    </dialog>
+    <dialog class="auth-dialog" id="authDialog" aria-labelledby="authHeading">
+      <form id="authForm">
+        <p class="eyebrow" id="authEyebrow">STAFF ACCESS</p>
+        <h2 id="authHeading">Sign in</h2>
+        <p class="auth-description" id="authDescription">Sign in to access staff tools.</p>
+        <label id="authNameLabel" for="authName" hidden>Your name</label>
+        <input class="admin-input" id="authName" name="name" autocomplete="name" maxlength="80" placeholder="Your name" hidden>
+        <label id="authCodeLabel" for="authSetupCode" hidden>One-time setup code</label>
+        <input class="admin-input" id="authSetupCode" name="setup_code" autocomplete="off" maxlength="128" placeholder="Shown in the server window" hidden>
+        <label for="authEmail">Email address</label>
+        <input class="admin-input" id="authEmail" name="email" type="email" required autocomplete="username" maxlength="254" placeholder="you@example.org">
+        <label for="authPassword">Password</label>
+        <input class="admin-input" id="authPassword" name="password" type="password" required autocomplete="current-password" minlength="8" maxlength="256" placeholder="At least 8 characters">
+        <button class="button button-primary full-button" id="authSubmit" type="submit">Sign in</button>
+        <button class="auth-secondary" id="authCancel" type="button">Cancel</button>
+        <div class="form-message" id="authMessage" role="status"></div>
+      </form>
+    </dialog>
+    <dialog class="auth-dialog" id="studioDialog" aria-labelledby="studioHeading">
+      <form id="studioUnlockForm">
+        <p class="eyebrow">RESTRICTED AREA</p>
+        <h2 id="studioHeading">Unlock Streaming studio</h2>
+        <p class="auth-description">Enter the separate studio password to open the streaming controls. Starting or stopping a broadcast still requires an admin or pastor sign-in.</p>
+        <label for="studioPassword">Streaming studio password</label>
+        <input class="admin-input" id="studioPassword" name="password" type="password" required autocomplete="current-password" maxlength="256" placeholder="Enter studio password">
+        <button class="button button-primary full-button" id="studioUnlockSubmit" type="submit">Unlock studio</button>
+        <button class="auth-secondary" id="studioUnlockCancel" type="button">Cancel</button>
+        <div class="form-message" id="studioUnlockMessage" role="status"></div>
+      </form>
+    </dialog>
+  </body>
+</html>
